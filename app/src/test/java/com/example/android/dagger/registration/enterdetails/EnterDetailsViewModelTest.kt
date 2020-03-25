@@ -39,7 +39,6 @@ class EnterDetailsViewModelTest {
     @Test
     fun `ValidateInput gives error when username is invalid`() {
         viewModel.validateInput("user", "password")
-
         assertTrue(LiveDataTestUtil.getValue(viewModel.enterDetailsState) is EnterDetailsError)
     }
 

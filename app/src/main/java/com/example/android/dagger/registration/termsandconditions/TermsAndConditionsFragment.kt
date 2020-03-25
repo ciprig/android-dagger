@@ -28,7 +28,9 @@ import com.example.android.dagger.registration.RegistrationViewModel
 
 class TermsAndConditionsFragment : Fragment() {
 
-    private lateinit var registrationViewModel: RegistrationViewModel
+    private val registrationViewModel: RegistrationViewModel by lazy {
+        (requireActivity() as RegistrationActivity).registrationComponent.registrationViewModel()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +38,6 @@ class TermsAndConditionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_terms_and_conditions, container, false)
-
-        registrationViewModel = (activity as RegistrationActivity).registrationViewModel
 
         view.findViewById<Button>(R.id.next).setOnClickListener {
             registrationViewModel.acceptTCs()

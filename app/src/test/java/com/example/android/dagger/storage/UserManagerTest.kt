@@ -16,12 +16,14 @@
 
 package com.example.android.dagger.storage
 
+import com.example.android.dagger.user.UserComponent
 import com.example.android.dagger.user.UserManager
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import io.mockk.every
+import io.mockk.mockk
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
+
 
 class UserManagerTest {
 
@@ -31,7 +33,13 @@ class UserManagerTest {
     @Before
     fun setup() {
         storage = FakeStorage()
-        userManager = UserManager(storage)
+
+        val userComponentFactory = mockk<UserComponent.Factory>()
+        every {
+            userComponentFactory.create(any())
+        } returns mockk()
+
+        userManager = UserManager(storage, userComponentFactory)
     }
 
     @Test

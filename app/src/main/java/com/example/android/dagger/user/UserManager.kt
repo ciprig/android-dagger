@@ -17,6 +17,8 @@
 package com.example.android.dagger.user
 
 import com.example.android.dagger.storage.Storage
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val REGISTERED_USER = "registered_user"
 private const val PASSWORD_SUFFIX = "password"
@@ -25,26 +27,31 @@ private const val PASSWORD_SUFFIX = "password"
  * Handles User lifecycle. Manages registrations, logs in and logs out.
  * Knows when the user is logged in.
  */
-class UserManager(private val storage: Storage) {
+@Singleton
+class UserManager @Inject constructor(
+    private val storage: Storage,
+    private val userComponentFactory: UserComponent.Factory
+) {
 
     /**
-     *  UserDataRepository is specific to a logged in user. This determines if the user
+     *  UserComponent is specific to a logged in user. This determines if the user
      *  is logged in or not, when the user logs in, a new instance will be created.
      *  When the user logs out, this will be null.
      */
-    var userDataRepository: UserDataRepository? = null
+    var userComponent: UserComponent? = null
+        private set
 
     val username: String
         get() = storage.getString(REGISTERED_USER)
 
-    fun isUserLoggedIn() = userDataRepository != null
+    fun isUserLoggedIn() = userComponent != null
 
     fun isUserRegistered() = storage.getString(REGISTERED_USER).isNotEmpty()
 
     fun registerUser(username: String, password: String) {
         storage.setString(REGISTERED_USER, username)
         storage.setString("$username$PASSWORD_SUFFIX", password)
-        userJustLoggedIn()
+        userJustLoggedIn(username)
     }
 
     fun loginUser(username: String, password: String): Boolean {
@@ -54,12 +61,12 @@ class UserManager(private val storage: Storage) {
         val registeredPassword = storage.getString("$username$PASSWORD_SUFFIX")
         if (registeredPassword != password) return false
 
-        userJustLoggedIn()
+        userJustLoggedIn(username)
         return true
     }
 
     fun logout() {
-        userDataRepository = null
+        userComponent = null
     }
 
     fun unregister() {
@@ -69,7 +76,7 @@ class UserManager(private val storage: Storage) {
         logout()
     }
 
-    private fun userJustLoggedIn() {
-        userDataRepository = UserDataRepository(this)
+    private fun userJustLoggedIn(username: String) {
+        userComponent = userComponentFactory.create(username)
     }
 }

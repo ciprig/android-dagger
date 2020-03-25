@@ -27,13 +27,18 @@ import com.example.android.dagger.registration.termsandconditions.TermsAndCondit
 
 class RegistrationActivity : AppCompatActivity() {
 
-    lateinit var registrationViewModel: RegistrationViewModel
+    val registrationComponent by lazy {
+        (application as MyApplication).appComponent.registrationComponent()
+    }
+
+    private val registrationViewModel by lazy {
+        registrationComponent.registrationViewModel()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        registrationViewModel = RegistrationViewModel((application as MyApplication).userManager)
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_holder, EnterDetailsFragment())
             .commit()
@@ -66,3 +71,4 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 }
+

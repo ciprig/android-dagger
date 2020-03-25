@@ -26,15 +26,16 @@ import com.example.android.dagger.login.LoginActivity
 
 class SettingsActivity : AppCompatActivity() {
 
-    private lateinit var settingsViewModel: SettingsViewModel
+    private val settingsViewModel: SettingsViewModel by lazy {
+        (application as MyApplication).appComponent.userManager.userComponent!!.settingsViewModel()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        val userManager = (application as MyApplication).userManager
+        title = "Settings ${settingsViewModel.userName}"
 
-        settingsViewModel = SettingsViewModel(userManager.userDataRepository!!, userManager)
         setupViews()
     }
 

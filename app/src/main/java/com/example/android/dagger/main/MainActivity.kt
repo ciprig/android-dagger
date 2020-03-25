@@ -23,13 +23,15 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
-import com.example.android.dagger.login.LoginActivity
-import com.example.android.dagger.registration.RegistrationActivity
 import com.example.android.dagger.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
+    //getter instead of field injection
+    //is only created on first call if is called
+    private val mainViewModel: MainViewModel by lazy {
+        (application as MyApplication).appComponent.userManager.userComponent!!.mainViewModel()
+    }
 
     /**
      * If the User is not registered, RegistrationActivity will be launched,
@@ -37,23 +39,13 @@ class MainActivity : AppCompatActivity() {
      * else carry on with MainActivity
      */
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
-        val userManager = (application as MyApplication).userManager
-        if (!userManager.isUserLoggedIn()) {
-            if (!userManager.isUserRegistered()) {
-                startActivity(Intent(this, RegistrationActivity::class.java))
-                finish()
-            } else {
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            }
-        } else {
-            setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
+        setupViews()
+        title = mainViewModel.title
 
-            mainViewModel = MainViewModel(userManager.userDataRepository!!)
-            setupViews()
-        }
     }
 
     /**
