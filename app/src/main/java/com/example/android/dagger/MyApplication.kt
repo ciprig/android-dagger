@@ -17,6 +17,7 @@
 package com.example.android.dagger
 
 import android.app.Application
+import android.content.Context
 import com.example.android.dagger.di.DaggerAppComponent
 
 open class MyApplication : Application() {
@@ -24,3 +25,5 @@ open class MyApplication : Application() {
         DaggerAppComponent.factory().create(applicationContext)
     }
 }
+
+val Context.appComponent get() = (applicationContext as MyApplication).appComponent
