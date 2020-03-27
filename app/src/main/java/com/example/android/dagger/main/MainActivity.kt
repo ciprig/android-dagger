@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
 import com.example.android.dagger.settings.SettingsActivity
@@ -30,7 +31,10 @@ class MainActivity : AppCompatActivity() {
     //getter instead of field injection
     //is only created on first call if is called
     private val mainViewModel: MainViewModel by lazy {
-        (application as MyApplication).appComponent.userManager.userComponent!!.mainViewModel()
+        ViewModelProvider(
+            this,
+            (application as MyApplication).appComponent.userManager.userComponent!!.mainViewModelFactory
+        ).get(MainViewModel::class.java)
     }
 
     /**
