@@ -1,6 +1,5 @@
 package com.example.android.dagger.user
 
-import com.example.android.dagger.di.ViewModelFactory
 import com.example.android.dagger.main.MainViewModel
 import com.example.android.dagger.settings.SettingsViewModel
 import dagger.BindsInstance
@@ -16,7 +15,7 @@ interface UserComponent {
     }
 
     fun settingsViewModel(): SettingsViewModel
-    val mainViewModelFactory: ViewModelFactory<MainViewModel>
+    val mainViewModel: MainViewModel
 
 //    @UserName
 //    fun getUserName(): String

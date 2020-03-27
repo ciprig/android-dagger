@@ -21,20 +21,19 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
 import com.example.android.dagger.settings.SettingsActivity
+import com.example.android.dagger.util.getViewModel
 
 class MainActivity : AppCompatActivity() {
 
     //getter instead of field injection
     //is only created on first call if is called
     private val mainViewModel: MainViewModel by lazy {
-        ViewModelProvider(
-            this,
-            (application as MyApplication).appComponent.userManager.userComponent!!.mainViewModelFactory
-        ).get(MainViewModel::class.java)
+        getViewModel {
+            (application as MyApplication).appComponent.userManager.userComponent!!.mainViewModel
+        }
     }
 
     /**
