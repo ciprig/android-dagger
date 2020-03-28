@@ -19,8 +19,8 @@ package com.example.android.dagger.registration
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
+import com.example.android.dagger.appComponent
 import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.enterdetails.EnterDetailsFragment
 import com.example.android.dagger.registration.termsandconditions.TermsAndConditionsFragment
@@ -28,7 +28,7 @@ import com.example.android.dagger.registration.termsandconditions.TermsAndCondit
 class RegistrationActivity : AppCompatActivity() {
 
     val registrationComponent by lazy {
-        (application as MyApplication).appComponent.registrationComponent()
+        appComponent.registrationComponent()
     }
 
     private val registrationViewModel by lazy {

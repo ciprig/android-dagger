@@ -3,7 +3,7 @@ package com.example.android.dagger.splash
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.android.dagger.MyApplication
+import com.example.android.dagger.appComponent
 import com.example.android.dagger.login.LoginActivity
 import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.RegistrationActivity
@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
         // Call before super.onCreate() to avoid issues with fragment restoration.
         // In super.onCreate, an Activity during the restore phase will attach fragments that might
         // want to access activity bindings.
-        (application as MyApplication).appComponent.inject(this)
+        appComponent.inject(this)
 
         if (!userManager.isUserLoggedIn()) {
             if (!userManager.isUserRegistered()) {

@@ -26,8 +26,8 @@ import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
+import com.example.android.dagger.appComponent
 import com.example.android.dagger.registration.RegistrationActivity
 import com.example.android.dagger.registration.RegistrationViewModel
 
@@ -47,7 +47,7 @@ class EnterDetailsFragment : Fragment() {
     }
 
     private val enterDetailsViewModel: EnterDetailsViewModel by lazy {
-        (requireActivity().application as MyApplication).appComponent.enterDetailsViewModel()
+        requireActivity().appComponent.enterDetailsViewModel()
     }
 
     private lateinit var errorTextView: TextView
@@ -61,7 +61,8 @@ class EnterDetailsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_enter_details, container, false)
 
-        enterDetailsViewModel.enterDetailsState.observe(this,
+        enterDetailsViewModel.enterDetailsState.observe(
+            viewLifecycleOwner,
             Observer<EnterDetailsViewState> { state ->
                 when (state) {
                     is EnterDetailsSuccess -> {

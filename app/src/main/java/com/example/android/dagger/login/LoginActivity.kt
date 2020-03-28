@@ -25,15 +25,15 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
-import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
+import com.example.android.dagger.appComponent
 import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.RegistrationActivity
 
 class LoginActivity : AppCompatActivity() {
 
     private val loginViewModel: LoginViewModel by lazy {
-        (application as MyApplication).appComponent.loginComponent().loginViewModel()
+        appComponent.loginComponent().loginViewModel()
     }
     private lateinit var errorTextView: TextView
 

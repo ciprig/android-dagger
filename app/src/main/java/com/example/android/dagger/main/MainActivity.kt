@@ -22,16 +22,15 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.dagger.R
-import com.example.android.dagger.appComponent
+import com.example.android.dagger.di.viewModelInjector
 import com.example.android.dagger.settings.SettingsActivity
-import com.example.android.dagger.util.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     //getter instead of field injection
     //is only created on first call if is called
-    private val mainViewModel: MainViewModel by viewModel {
-        appComponent.userManager.userComponent!!.mainViewModel
+    private val mainViewModel: MainViewModel by viewModelInjector {
+        userManager.userComponent!!.mainViewModel()
     }
 
     /**

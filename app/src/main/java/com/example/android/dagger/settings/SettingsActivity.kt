@@ -20,14 +20,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
+import com.example.android.dagger.appComponent
 import com.example.android.dagger.login.LoginActivity
 
 class SettingsActivity : AppCompatActivity() {
 
     private val settingsViewModel: SettingsViewModel by lazy {
-        (application as MyApplication).appComponent.userManager.userComponent!!.settingsViewModel()
+        appComponent.userManager.userComponent!!.settingsViewModel()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -15,8 +15,9 @@ interface UserComponent {
     }
 
     fun settingsViewModel(): SettingsViewModel
-    val mainViewModel: MainViewModel
+    fun mainViewModel(): MainViewModel
 
+    //   val  mainViewModelProvider: Provider<MainViewModel>
 //    @UserName
 //    fun getUserName(): String
 }
