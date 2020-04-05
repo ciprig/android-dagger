@@ -22,6 +22,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
@@ -32,8 +33,8 @@ import com.example.android.dagger.registration.RegistrationActivity
 
 class LoginActivity : AppCompatActivity() {
 
-    private val loginViewModel: LoginViewModel by lazy {
-        appComponent.loginComponent().loginViewModel()
+    private val loginViewModel: LoginViewModel by viewModels<LoginViewModel> {
+        appComponent.loginComponent().loginViewModelFactory
     }
     private lateinit var errorTextView: TextView
 
