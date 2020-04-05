@@ -18,21 +18,27 @@ package com.example.android.dagger.main
 
 import androidx.lifecycle.ViewModel
 import com.example.android.dagger.user.UserDataRepository
-import javax.inject.Inject
+import com.squareup.inject.assisted.Assisted
+import com.squareup.inject.assisted.AssistedInject
 
 /**
  * MainViewModel is the ViewModel that [MainActivity] uses to
  * obtain information of what to show on the screen.
  */
-class MainViewModel @Inject constructor(private val userDataRepository: UserDataRepository) :
+class MainViewModel @AssistedInject constructor(
+    private val userDataRepository: UserDataRepository,
+    @Assisted val title: String
+) :
     ViewModel() {
+
+    @AssistedInject.Factory
+    interface Factory {
+        fun create(title: String): MainViewModel
+    }
 
     val welcomeText: String
         get() = "Hello ${userDataRepository.username}!"
 
     val notificationsText: String
         get() = "You have ${userDataRepository.unreadNotifications} unread notifications"
-
-    val title: String
-        get() = "Dagger ${userDataRepository.username}"
 }

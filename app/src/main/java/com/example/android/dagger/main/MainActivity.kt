@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     //getter instead of field injection
     //is only created on first call if is called
     private val mainViewModel: MainViewModel by viewModelInjector {
-        userManager.userComponent!!.mainViewModel()
+         userManager.userComponent!!.mainViewModelFactory.create("Dagger Assisted")
     }
 
     /**

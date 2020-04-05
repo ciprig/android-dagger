@@ -6,7 +6,7 @@ import dagger.BindsInstance
 import dagger.Subcomponent
 
 @UserScope
-@Subcomponent
+@Subcomponent(modules = [AssistedViewModelModule::class])
 interface UserComponent {
 
     @Subcomponent.Factory
@@ -15,9 +15,5 @@ interface UserComponent {
     }
 
     fun settingsViewModel(): SettingsViewModel
-    fun mainViewModel(): MainViewModel
-
-    //   val  mainViewModelProvider: Provider<MainViewModel>
-//    @UserName
-//    fun getUserName(): String
+    val mainViewModelFactory: MainViewModel.Factory
 }
