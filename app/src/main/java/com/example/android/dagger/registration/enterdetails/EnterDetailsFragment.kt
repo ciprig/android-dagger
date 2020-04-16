@@ -27,12 +27,12 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.android.dagger.R
-import com.example.android.dagger.appComponent
+import com.example.android.dagger.di.parentViewModelInjector
+import com.example.android.dagger.di.viewModelInjector
 import com.example.android.dagger.registration.RegistrationActivity
 import com.example.android.dagger.registration.RegistrationViewModel
 
 class EnterDetailsFragment : Fragment() {
-
     /**
      * RegistrationViewModel is used to set the username and password information (attached to
      * Activity's lifecycle and shared between different fragments)
@@ -42,12 +42,12 @@ class EnterDetailsFragment : Fragment() {
      * They could get combined but for the sake of the codelab, we're separating them so we have
      * different ViewModels with different lifecycles.
      */
-    private val registrationViewModel: RegistrationViewModel by lazy {
-        (requireActivity() as RegistrationActivity).registrationComponent.registrationViewModel()
+    private val registrationViewModel: RegistrationViewModel by parentViewModelInjector {
+        registrationViewModel()
     }
 
-    private val enterDetailsViewModel: EnterDetailsViewModel by lazy {
-        requireActivity().appComponent.enterDetailsViewModel()
+    private val enterDetailsViewModel: EnterDetailsViewModel by viewModelInjector {
+        enterDetailsViewModel()
     }
 
     private lateinit var errorTextView: TextView

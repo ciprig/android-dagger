@@ -20,19 +20,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.dagger.R
-import com.example.android.dagger.appComponent
+import com.example.android.dagger.di.viewModelInjector
 import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.enterdetails.EnterDetailsFragment
 import com.example.android.dagger.registration.termsandconditions.TermsAndConditionsFragment
 
 class RegistrationActivity : AppCompatActivity() {
 
-    val registrationComponent by lazy {
-        appComponent.registrationComponent()
-    }
-
-    private val registrationViewModel by lazy {
-        registrationComponent.registrationViewModel()
+    private val registrationViewModel by viewModelInjector {
+        registrationViewModel()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

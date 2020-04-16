@@ -23,13 +23,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.android.dagger.R
+import com.example.android.dagger.di.parentViewModelInjector
 import com.example.android.dagger.registration.RegistrationActivity
 import com.example.android.dagger.registration.RegistrationViewModel
 
 class TermsAndConditionsFragment : Fragment() {
 
-    private val registrationViewModel: RegistrationViewModel by lazy {
-        (requireActivity() as RegistrationActivity).registrationComponent.registrationViewModel()
+    private val registrationViewModel: RegistrationViewModel by parentViewModelInjector {
+        registrationViewModel()
     }
 
     override fun onCreateView(

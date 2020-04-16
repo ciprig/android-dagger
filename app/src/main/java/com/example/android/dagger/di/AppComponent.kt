@@ -2,7 +2,7 @@ package com.example.android.dagger.di
 
 import android.content.Context
 import com.example.android.dagger.login.LoginComponent
-import com.example.android.dagger.registration.RegistrationComponent
+import com.example.android.dagger.registration.RegistrationViewModel
 import com.example.android.dagger.registration.enterdetails.EnterDetailsViewModel
 import com.example.android.dagger.splash.SplashActivity
 import com.example.android.dagger.user.UserManager
@@ -22,10 +22,10 @@ interface AppComponent {
     val userManager: UserManager
 
     //val userComponentFactory: UserComponent.Factory
-    fun registrationComponent(): RegistrationComponent
     fun loginComponent(): LoginComponent
 
     fun enterDetailsViewModel(): EnterDetailsViewModel
 
     fun inject(mainActivity: SplashActivity)
+    fun registrationViewModel(): RegistrationViewModel
 }
