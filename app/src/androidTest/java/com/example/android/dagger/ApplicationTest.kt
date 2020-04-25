@@ -16,19 +16,32 @@
 
 package com.example.android.dagger
 
-import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import com.example.android.dagger.main.MainActivity
+import androidx.test.ext.junit.rules.activityScenarioRule
+import androidx.test.filters.LargeTest
+import com.example.android.dagger.splash.SplashActivity
+import org.junit.Rule
 import org.junit.Test
 
+@LargeTest
 class ApplicationTest {
+
+
+    /**
+     * Use [ActivityScenarioRule] to create and launch the activity under test before each test,
+     * and close it after each test. This is a replacement for
+     * [androidx.test.rule.ActivityTestRule].
+     */
+    @get:Rule
+    var activityScenarioRule = activityScenarioRule<SplashActivity>()
+
 
     @Test
     fun runApp() {
-        ActivityScenario.launch(MainActivity::class.java)
+        // ActivityScenario.launch(MainActivity::class.java)
 
         // Should be in Registration/EnterDetails because the user is not registered
         onView(withText("Register to Dagger World!")).check(matches(isDisplayed()))

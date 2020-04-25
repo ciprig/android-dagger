@@ -31,7 +31,7 @@ class MainViewModelTest {
     @Before
     fun setup() {
         userDataRepository = mock(UserDataRepository::class.java)
-        viewModel = MainViewModel(userDataRepository)
+        viewModel = MainViewModel(userDataRepository, "test")
     }
 
     @Test
