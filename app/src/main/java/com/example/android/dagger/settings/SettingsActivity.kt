@@ -19,16 +19,16 @@ package com.example.android.dagger.settings
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.dagger.R
-import com.example.android.dagger.appComponent
 import com.example.android.dagger.login.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsActivity : AppCompatActivity() {
 
-    private val settingsViewModel: SettingsViewModel by lazy {
-        appComponent.userManager.userComponent!!.settingsViewModel()
-    }
+    private val settingsViewModel by viewModels<SettingsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

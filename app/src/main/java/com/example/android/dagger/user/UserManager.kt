@@ -29,22 +29,24 @@ private const val PASSWORD_SUFFIX = "password"
  */
 @Singleton
 class UserManager @Inject constructor(
-    private val storage: Storage,
-    private val userComponentFactory: UserComponent.Factory
+    private val storage: Storage
+    // private val userComponentFactory: UserComponent.Factory
 ) {
 
-    /**
-     *  UserComponent is specific to a logged in user. This determines if the user
-     *  is logged in or not, when the user logs in, a new instance will be created.
-     *  When the user logs out, this will be null.
-     */
-    var userComponent: UserComponent? = null
-        private set
+//    /**
+//     *  UserComponent is specific to a logged in user. This determines if the user
+//     *  is logged in or not, when the user logs in, a new instance will be created.
+//     *  When the user logs out, this will be null.
+//     */
+//    var userComponent: UserComponent? = null
+//        private set
 
     val username: String
         get() = storage.getString(REGISTERED_USER)
 
-    fun isUserLoggedIn() = userComponent != null
+    var repo: UserDataRepository? = null
+
+    fun isUserLoggedIn() = repo != null
 
     fun isUserRegistered() = storage.getString(REGISTERED_USER).isNotEmpty()
 
@@ -66,7 +68,7 @@ class UserManager @Inject constructor(
     }
 
     fun logout() {
-        userComponent = null
+        repo = null
     }
 
     fun unregister() {
@@ -77,6 +79,6 @@ class UserManager @Inject constructor(
     }
 
     private fun userJustLoggedIn(username: String) {
-        userComponent = userComponentFactory.create(username)
+        repo = UserDataRepository(username)
     }
 }

@@ -25,12 +25,15 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.android.dagger.R
-import com.example.android.dagger.appComponent
 import com.example.android.dagger.registration.RegistrationActivity
 import com.example.android.dagger.registration.RegistrationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EnterDetailsFragment : Fragment() {
 
     /**
@@ -42,13 +45,9 @@ class EnterDetailsFragment : Fragment() {
      * They could get combined but for the sake of the codelab, we're separating them so we have
      * different ViewModels with different lifecycles.
      */
-    private val registrationViewModel: RegistrationViewModel by lazy {
-        (requireActivity() as RegistrationActivity).registrationComponent.registrationViewModel()
-    }
+    private val registrationViewModel by activityViewModels<RegistrationViewModel>()
 
-    private val enterDetailsViewModel: EnterDetailsViewModel by lazy {
-        requireActivity().appComponent.enterDetailsViewModel()
-    }
+    private val enterDetailsViewModel by viewModels<EnterDetailsViewModel>()
 
     private lateinit var errorTextView: TextView
     private lateinit var usernameEditText: EditText

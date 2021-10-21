@@ -22,19 +22,23 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import com.example.android.dagger.R
-import com.example.android.dagger.appComponent
 import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.RegistrationActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    private val loginViewModel: LoginViewModel by lazy {
-        appComponent.loginComponent().loginViewModel()
-    }
+//    @Inject
+//    lateinit var userManager: UserManager
+
+    private val loginViewModel by viewModels<LoginViewModel>()
+
     private lateinit var errorTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {

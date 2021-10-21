@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -54,6 +55,18 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.2.3"
     implementation "androidx.activity:activity-ktx:1.1.0"
 
+    //hilt
+    implementation "com.google.dagger:hilt-android:$hiltAndroid"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltAndroid"
+//    kapt "androidx.hilt:hilt-compiler:$hiltAndroid"
+//    implementation "androidx.hilt:hilt-common:$hiltAndroid"
+//    implementation "androidx.hilt:hilt-compiler:$hiltAndroid"
+
+    // Hilt Navigation
+//    implementation "androidx.hilt:hilt-navigation-fragment:$versions.hilt"
+//    implementation "androidx.hilt:hilt-navigation:$versions.hilt"
+
+
     testImplementation 'junit:junit:4.13'
     testImplementation "io.mockk:mockk:1.9.3"
     testImplementation 'android.arch.core:core-testing:1.1.1'
@@ -62,4 +75,9 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$androidx_test_version"
     androidTestImplementation "androidx.test:core-ktx:$androidx_test_version"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+kapt {
+    // Allow references to generated code
+    correctErrorTypes = true
 }

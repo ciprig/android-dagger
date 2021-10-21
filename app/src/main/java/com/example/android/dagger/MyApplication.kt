@@ -17,13 +17,13 @@
 package com.example.android.dagger
 
 import android.app.Application
-import android.content.Context
-import com.example.android.dagger.di.DaggerAppComponent
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 open class MyApplication : Application() {
-    open val appComponent by lazy {
-        DaggerAppComponent.factory().create(applicationContext)
-    }
+//    open val appComponent by lazy {
+//        DaggerAppComponent.factory().create(applicationContext)
+//    }
 }
 
-val Context.appComponent get() = (applicationContext as MyApplication).appComponent
+//val Context.appComponent get() = (applicationContext as MyApplication).appComponent

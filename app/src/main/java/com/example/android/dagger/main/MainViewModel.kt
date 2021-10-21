@@ -17,22 +17,24 @@
 package com.example.android.dagger.main
 
 import androidx.lifecycle.ViewModel
-import com.example.android.dagger.user.UserDataRepository
+import com.example.android.dagger.user.UserManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 /**
  * MainViewModel is the ViewModel that [MainActivity] uses to
  * obtain information of what to show on the screen.
  */
-class MainViewModel @Inject constructor(private val userDataRepository: UserDataRepository) :
+@HiltViewModel
+class MainViewModel @Inject constructor(private val userManager: UserManager) :
     ViewModel() {
 
     val welcomeText: String
-        get() = "Hello ${userDataRepository.username}!"
+        get() = "Hello ${userManager.repo?.username}!"
 
     val notificationsText: String
-        get() = "You have ${userDataRepository.unreadNotifications} unread notifications"
+        get() = "You have ${userManager.repo?.unreadNotifications} unread notifications"
 
     val title: String
-        get() = "Dagger ${userDataRepository.username}"
+        get() = "Dagger ${userManager.repo?.username}"
 }
